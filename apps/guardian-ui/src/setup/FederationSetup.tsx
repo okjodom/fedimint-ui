@@ -9,7 +9,6 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
-import { Header } from '../components/Header';
 import { useSetupContext } from '../hooks';
 import { GuardianRole, SetupProgress, SETUP_ACTION_TYPE } from './types';
 import { RoleSelector } from '../components/RoleSelector';
@@ -110,7 +109,6 @@ export const FederationSetup: React.FC = () => {
 
   return (
     <VStack gap={8} align='start'>
-      <Header />
       <VStack align='start' gap={2}>
         {prevProgress && canGoBack && (
           <Button

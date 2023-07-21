@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { Box, Center } from '@chakra-ui/react';
+import { Header } from './Header';
 
 export interface WrapperProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export const Wrapper = memo(function Wrapper({
         p={5}
         width='100%'
       >
+        <Header />
         {children}
       </Box>
     </Center>

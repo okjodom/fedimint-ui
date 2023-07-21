@@ -48,7 +48,9 @@ export const App = React.memo(function App() {
           case 'Admin':
             content = (
               <AdminContextProvider api={api}>
-                <FederationAdmin />
+                <Wrapper>
+                  <FederationAdmin />
+                </Wrapper>
               </AdminContextProvider>
             );
             break;
