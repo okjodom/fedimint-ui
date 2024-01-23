@@ -96,8 +96,6 @@ export interface SetupContextValue {
     password: string;
     configs: T;
   }): Promise<void>;
-  connectToHost(url: string): Promise<void>;
-  fetchConsensusState(): Promise<void>;
   toggleConsensusPolling(toggle: boolean): void;
 }
 
@@ -126,8 +124,6 @@ export const SetupContext = createContext<SetupContextValue>({
   state: initialState,
   dispatch: () => null,
   submitConfiguration: () => Promise.reject(),
-  connectToHost: () => Promise.reject(),
-  fetchConsensusState: () => Promise.reject(),
   toggleConsensusPolling: () => null,
 });
 
@@ -146,7 +142,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
     ...initialState,
     password: api.getPassword() || initialState.password,
   });
-  const { password, myName } = state;
+  const { password } = state;
   const [isPollingConsensus, setIsPollingConsensus] = useState(false);
 
   useEffect(() => {
@@ -298,14 +294,6 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
       [password, api, dispatch, fetchConsensusState]
     );
 
-  const connectToHost = useCallback(
-    async (url: string) => {
-      await api.setConfigGenConnections(myName, url);
-      return await fetchConsensusState();
-    },
-    [myName, api, fetchConsensusState]
-  );
-
   const toggleConsensusPolling = useCallback((poll: boolean) => {
     setIsPollingConsensus(poll);
   }, []);
@@ -317,8 +305,6 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
         dispatch,
         api,
         submitConfiguration,
-        connectToHost,
-        fetchConsensusState,
         toggleConsensusPolling,
       }}
     >
