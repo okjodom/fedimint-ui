@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Button,
   Icon,
@@ -19,6 +19,8 @@ import { ReactComponent as WarningIcon } from '../assets/svgs/warning.svg';
 import { ReactComponent as SoloIcon } from '../assets/svgs/solo.svg';
 import { useSetupContext } from '../hooks';
 import { useTranslation } from '@fedimint/utils';
+import { getQueryParam } from '../utils/utils';
+import { isGuardianRole } from '../utils/validators';
 
 interface Props {
   next: () => void;
@@ -53,6 +55,13 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
     ],
     [t]
   );
+
+  useEffect(() => {
+    const roleQueryParam = getQueryParam('role');
+    if (roleQueryParam && isGuardianRole(roleQueryParam)) {
+      setRole(roleQueryParam);
+    }
+  }, []);
 
   const handleNext = useCallback(() => {
     if (!role) return;

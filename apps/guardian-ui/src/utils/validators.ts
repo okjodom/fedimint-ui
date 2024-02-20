@@ -1,4 +1,5 @@
 import { ConfigGenParams, ConsensusParams } from '@fedimint/types';
+import { GuardianRole } from '../types';
 
 export const isValidNumber = (value: string, min?: number, max?: number) => {
   const int = parseInt(value, 10);
@@ -17,3 +18,7 @@ export function isConsensusparams(
 ): params is ConsensusParams {
   return 'peers' in params;
 }
+
+export const isGuardianRole = (role: string): role is GuardianRole => {
+  return Object.values(GuardianRole).includes(role as GuardianRole);
+};

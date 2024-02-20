@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Box,
   Button,
@@ -15,6 +15,7 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
+import { ServerStatus } from '@fedimint/types';
 import { useSetupContext } from '../hooks';
 import { GuardianRole, SetupProgress, SETUP_ACTION_TYPE } from '../types';
 import { RoleSelector } from '../components/RoleSelector';
@@ -29,8 +30,6 @@ import { getEnv } from '../utils/env';
 
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { ReactComponent as CancelIcon } from '../assets/svgs/x-circle.svg';
-import { ServerStatus } from '@fedimint/types';
-import { getQueryParam } from '../utils/utils';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,
@@ -82,23 +81,6 @@ export const FederationSetup: React.FC = () => {
         console.error(err);
       });
   }, [api, dispatch]);
-
-  useEffect(() => {
-    if (progress !== SetupProgress.Start) {
-      return;
-    }
-    const roleQueryParam = getQueryParam('role')?.toLowerCase();
-    if (
-      roleQueryParam &&
-      progress === SetupProgress.Start &&
-      ['Host', 'Solo', 'Follower'].includes(roleQueryParam)
-    ) {
-      dispatch({
-        type: SETUP_ACTION_TYPE.SET_ROLE,
-        payload: roleQueryParam as GuardianRole,
-      });
-    }
-  }, [dispatch, progress]);
 
   let title: React.ReactNode;
   let subtitle: React.ReactNode;
