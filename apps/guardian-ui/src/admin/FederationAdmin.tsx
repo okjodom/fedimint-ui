@@ -12,7 +12,7 @@ import { FederationInfoCard } from '../components/FederationInfoCard';
 import { BitcoinNodeCard } from '../components/BitcoinNodeCard';
 import { BalanceCard } from '../components/BalanceCard';
 import { InviteCode } from '../components/InviteCode';
-import { ConfigViewer } from '../components/ConfigViewer';
+import { FederationConfigCard } from '../components/FederationConfigCard';
 import { DownloadBackup } from '../components/DownloadBackup';
 
 export const FederationAdmin: React.FC = () => {
@@ -61,7 +61,7 @@ export const FederationAdmin: React.FC = () => {
         </Flex>
         <GuardiansCard status={status} config={config} />
         <GatewaysCard config={config} />
-        <ConfigViewer config={config} />
+        <FederationConfigCard config={config} />
         <DownloadBackup />
       </Flex>
     </Flex>
